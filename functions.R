@@ -1,10 +1,10 @@
 gpu.pvclust.parallel <- function(data, method.hclust="average", method.dist="correlation", use.cor="pairwise.complete.obs", nboot=1000, r=seq(.5,1.4,by=.1), store=FALSE, weight=FALSE, iseed=NULL, quiet=FALSE, init.rand = NULL)
 {
-  library(gputools)
-  library(parallel)
+  require(gputools)
+  require(parallel)
 
   #source pvcluster-internal from wherever you cloned the repo 
-  source("pvclust-internal.R", local = FALSE)
+  source("pvclust-internal.R",local = FALSE)
 
   #looks for environment variables NUM_CORES to set parallel, otherwise hard code some number here
   par.size <- as.numeric(Sys.getenv("NUM_CORES"))
@@ -98,7 +98,7 @@ pvclust.node.gpu <- function(x, r, ...)
 
 boot.hclust.gpu <- function(r, data, object.hclust, method.dist, use.cor, method.hclust, nboot, store, weight=FALSE, quiet=FALSE)
 { 
-  source("/hpf/largeprojects/ahuang/huangjntprj/Methylation450k/projects/ATRT_Project_2017/Classifier/clust_gpu/pvclust-internal.R")
+  source("pvclust-internal.R")
   
   n <- nrow(data)
   size  <- round(n*r, digits=0)
