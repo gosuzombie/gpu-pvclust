@@ -85,13 +85,13 @@ gpu.pvclust.parallel <- function(data, method.hclust="average", method.dist="cor
 
 pvclust.node.gpu <- function(x, r, ...)
 {
-  selectedGpu <- Sys.getenv("CUDA_VISIBLE_DEVICES")
-  if(length(selectedGpu) > 1){
-    selectedGpu <- sample(0:1, 1)
-  } else {
-    selectedGpu <- 0
-  }
-  gputools::chooseGpu(deviceId = selectedGpu)
+  #selectedGpu <- Sys.getenv("CUDA_VISIBLE_DEVICES")
+  #if(length(selectedGpu) > 1){
+  #  selectedGpu <- sample(0:1, 1)
+  #} else {
+  #  selectedGpu <- 0
+  #}
+  #gputools::chooseGpu(deviceId = selectedGpu)
   mboot.node <- lapply(r, FUN = boot.hclust.gpu , nboot=x, ...)
   return(mboot.node)
 }
