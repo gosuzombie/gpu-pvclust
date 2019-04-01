@@ -9,7 +9,7 @@ gpu.pvclust.parallel <- function(data, method.hclust="average", method.dist="cor
   #looks for environment variables NUM_CORES to set parallel, otherwise hard code some number here
   par.size <- as.numeric(Sys.getenv("NUM_CORES"))
   if(is.na(par.size)){par.size = ncores}
-  cl <- parallel::makeForkCluster(nnodes = par.size)
+  cl <- parallel::makeForkCluster(nnodes = par.size, outfile = "debug.txt")
   on.exit(stopCluster(cl))
 
 
