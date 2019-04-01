@@ -1,4 +1,4 @@
-gpu.pvclust.parallel <- function(data, method.hclust="average", method.dist="correlation", use.cor="pairwise.complete.obs", nboot=1000, r=seq(.5,1.4,by=.1), store=FALSE, weight=FALSE, iseed=NULL, quiet=FALSE, init.rand = NULL)
+gpu.pvclust.parallel <- function(data, method.hclust="average", method.dist="correlation", use.cor="pairwise.complete.obs", nboot=1000, r=seq(.5,1.4,by=.1), store=FALSE, weight=FALSE, iseed=NULL, quiet=FALSE, init.rand = NULL, ncores = 1)
 {
   require(gputools)
   require(parallel)
@@ -8,7 +8,7 @@ gpu.pvclust.parallel <- function(data, method.hclust="average", method.dist="cor
 
   #looks for environment variables NUM_CORES to set parallel, otherwise hard code some number here
   par.size <- as.numeric(Sys.getenv("NUM_CORES"))
-  print(par.size)
+  if(par.size == ""){par.size = ncores}
   cl <- parallel::makeForkCluster(nnodes = par.size)
   on.exit(stopCluster(cl))
 
